@@ -30,6 +30,8 @@ function App() {
   const [input, setInput] = useState("")
   const [info, setInfo] = useState<null | undefined | weather>(undefined)
   const [home, setHome] = useState(true)
+  const [userLat, setUserLat] = useState<undefined | number>(undefined)
+  const [userLon, setUserLon] = useState<undefined | number>(undefined)
 
   function onChange(e: any) {
     setInput(e.target.value)
@@ -56,7 +58,7 @@ function App() {
     let options = {
       method: 'GET',
       url: 'http://api.weatherapi.com/v1/current.json',
-      params: {key: process.env.REACT_APP_API_KEY, q: city}
+      params: {key: process.env.REACT_APP_API_KEY, q: userLat === undefined ? city : [userLat, userLon]}
     }
 
     axios.request(options).then((res) => {
@@ -65,15 +67,16 @@ function App() {
       alert("Please enter a valid city.")
       setCity(prevCity)
     })
-
-    console.log(info)
   }, [city, minute])
 
   const date = info?.location.localtime.split(" ")[0]
   const time = info?.location.localtime.split(" ")[1]
 
   const success = (position: any) => {
-    console.log(position.latitude)
+    setUserLat(51.5072)
+    setUserLon(0.1276)
+    // setUserLat(position.coords.latitude)
+    // setUserLon(position.coords.longitude)
   }
 
   navigator.geolocation.getCurrentPosition(success, () => setCity("auckland"))
