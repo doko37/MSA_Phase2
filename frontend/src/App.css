@@ -1,0 +1,209 @@
+.App {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Open Sans', sans-serif;
+    font-family: 'Quicksand', sans-serif;
+}
+
+h1 {
+    font-weight: 300;
+}
+
+.Background {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    filter: blur(3px);
+    object-fit: cover;
+    opacity: 100%;
+    transition: all 1s;
+}
+
+.Background.hide {
+    opacity: 0%;
+    transition: all 1s;
+}
+
+.Background.night {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    filter: blur(3px);
+    object-fit: cover;
+    opacity: 100%;
+    transition: all 1s;
+}
+
+.Background.night.hide {
+    opacity: 0%;
+    transition: all 1s;
+}
+
+.Cover {
+    background-color: black;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    opacity: 30%;
+    z-index: 10;
+}
+
+.TextCtn {
+    position: relative;
+    z-index: 15;
+    border-radius: 2rem;
+    background-color: rgba(0,0,0,0.4);
+    padding: 2rem;
+    width: 600px;
+    height: 200px;
+    margin: 2rem auto;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.Divider {
+    height: 100%;
+    width: 0px;
+    border: 2px solid white;
+    border-radius: 1rem;
+    margin: 0 1rem;
+}
+
+.Time {
+    margin: 0 1rem;
+    color: white;
+    font-size: 80px;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Time.night {
+    color: black;
+}
+
+.Location {
+    margin: 0 1rem;
+    color: white;
+    font-size: 25px;
+    text-align: center;
+}
+
+.Location.night {
+    color: black;
+}
+
+.BottomCtn {
+    position: relative;
+    display: block;
+    z-index: 15;
+    border-radius: 2rem;
+    background-color: rgba(0,0,0,0.4);
+    margin: 2rem auto;
+    width: 600px;
+    padding: 1rem 2rem;
+}
+
+.InputCtn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+input {
+    border-radius: 1rem;
+    background-color: rgba(0,0,0,0.4);
+    padding: 0.5rem 1rem;
+    width: 100%;
+    border: none;
+    color: white;
+    font-weight: 600;
+}
+
+.SearchIcon {
+    color: white;
+    margin-left: 1rem;
+    cursor: pointer;
+    transition: all 0.25s ease-in-out;
+}
+
+.SearchIcon:hover {
+    color: gray;
+    transition: all 0.25s ease-in-out;
+}
+
+.WeatherIcon {
+    margin-left: 1rem;
+}
+
+.Logo {
+    position: absolute;
+    z-index: 15;
+    left: 0;
+    top: 0;
+    margin: 1rem;
+    color: white;
+    cursor: pointer;
+    transition: all 0.25s ease-in-out;
+}
+
+.Logo:hover {
+    color: gray;
+    transition: all 0.25s ease-in-out;
+}
+
+.currently {
+    color: white;
+    margin: 0 1rem;
+    font-size: 15px;
+}
+
+@media(max-width: 800px) {
+    .TextCtn {
+        width: auto;
+        height: auto;
+        margin: 1rem;
+        padding: 1rem;
+        display: block;
+    }
+
+    .BottomCtn {
+        width: auto;
+        margin: 1rem;
+    }
+
+    .Location {
+        font-size: 15px;
+    }
+    
+    .Time {
+        font-size: 30px;
+    }
+
+    .Divider {
+        display: none;
+    }
+
+    .WeatherIcon {
+        margin-left: 0.5rem;
+        width: 32px;
+        height: 32px;
+    }
+
+    .Logo {
+        position: relative;
+        text-align: center;
+    }
+
+    .currently {
+        text-align: center;
+        margin-top: 0.5rem;
+        font-size: 12px;
+    }
+}
