@@ -32,16 +32,35 @@ function App() {
   const [home, setHome] = useState(true)
   const [userLat, setUserLat] = useState<undefined | number>(undefined)
   const [userLon, setUserLon] = useState<undefined | number>(undefined)
+  const [prevLat, setPrevLat] = useState<undefined | number>(undefined)
+  const [prevLon, setPrevLon] = useState<undefined | number>(undefined)
 
   function onChange(e: any) {
     setInput(e.target.value)
   }
 
   function changeCity() {
-    setPrevCity(city)
-    setCity(input)
-    setInput("")
+    if(input !== "") {
+      setPrevCity(city)
+      setCity(input)
+      setInput("")
+      setUserLat(undefined)
+      setUserLon(undefined)
+    } else {
+      console.log('stop')
+    }
   }
+
+  const success = (position: any) => {
+    setPrevLat(userLat)
+    setPrevLon(userLon)
+    setUserLat(position.coords.latitude)
+    setUserLon(position.coords.longitude)
+  }
+
+  useEffect(() => {
+    navigator.geolocation.getCurrentPosition(success, () => setCity("auckland"))
+  }, [])
 
   useEffect(() => {
     const temp = new Date()
@@ -55,10 +74,18 @@ function App() {
   }, [])
 
   useEffect(() => {
+    let q
+
+    if(userLat !== undefined) {
+      q = userLat.toString() + "," + userLon?.toString()
+    } else {
+      q = city
+    }
+
     let options = {
       method: 'GET',
       url: 'http://api.weatherapi.com/v1/current.json',
-      params: {key: process.env.REACT_APP_API_KEY, q: userLat === undefined ? city : [userLat, userLon]}
+      params: {key: process.env.REACT_APP_API_KEY, q}
     }
 
     axios.request(options).then((res) => {
@@ -67,19 +94,10 @@ function App() {
       alert("Please enter a valid city.")
       setCity(prevCity)
     })
-  }, [city, minute])
+  }, [city, minute, userLat])
 
   const date = info?.location.localtime.split(" ")[0]
   const time = info?.location.localtime.split(" ")[1]
-
-  const success = (position: any) => {
-    setUserLat(51.5072)
-    setUserLon(0.1276)
-    // setUserLat(position.coords.latitude)
-    // setUserLon(position.coords.longitude)
-  }
-
-  navigator.geolocation.getCurrentPosition(success, () => setCity("auckland"))
 
   return (
     <div className="App">
