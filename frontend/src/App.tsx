@@ -35,10 +35,6 @@ function App() {
   const [prevLat, setPrevLat] = useState<undefined | number>(undefined)
   const [prevLon, setPrevLon] = useState<undefined | number>(undefined)
 
-  function onChange(e: any) {
-    setInput(e.target.value)
-  }
-
   function changeCity() {
     if(input !== "") {
       setPrevCity(city)
@@ -50,6 +46,15 @@ function App() {
       console.log('stop')
     }
   }
+
+  function onChange(e: any) {
+    if(e.key === 'Enter') {
+      changeCity()
+    } else {
+      setInput(e.target.value)
+    }
+  }
+
 
   const success = (position: any) => {
     setPrevLat(userLat)
@@ -121,7 +126,7 @@ function App() {
         <div className='BottomCtn'>
           <h3 style={{margin: '0 0 1rem 0', color: 'white'}}>Search for City</h3>
           <div className="InputCtn">
-            <input value={input} onChange={onChange} onSubmit={changeCity}/>
+            <input value={input} onChange={onChange} onSubmit={changeCity} onKeyDown={onChange}/>
             <Search className="SearchIcon" onClick={changeCity}/>
           </div>
         </div>
